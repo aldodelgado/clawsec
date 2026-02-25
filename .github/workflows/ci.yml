@@ -101,6 +101,8 @@ jobs:
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version: '20'
+          cache: 'npm'
+      - run: npm ci
       - name: Feed Verification Tests
         run: node skills/clawsec-suite/test/feed_verification.test.mjs
       - name: Guarded Install Tests
@@ -109,6 +111,10 @@ jobs:
         run: node skills/clawsec-suite/test/advisory_suppression.test.mjs
       - name: Path Resolution Tests
         run: node skills/clawsec-suite/test/path_resolution.test.mjs
+      - name: Fuzz Property Tests
+        run: node skills/clawsec-suite/test/fuzz_properties.test.mjs
+      - name: Semver/Scope/Suppression Fuzz Tests
+        run: node skills/clawsec-suite/test/fuzz_semver_scope_suppression.test.mjs
       - name: Advisory Application Scope Tests
         run: node skills/clawsec-suite/test/advisory_application_scope.test.mjs
 
@@ -120,7 +126,11 @@ jobs:
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version: '20'
+          cache: 'npm'
+      - run: npm ci
       - name: Suppression Config Tests
         run: node skills/openclaw-audit-watchdog/test/suppression_config.test.mjs
+      - name: Suppression Config Fuzz Tests
+        run: node skills/openclaw-audit-watchdog/test/suppression_config_fuzz.test.mjs
       - name: Render Report Suppression Tests
         run: node skills/openclaw-audit-watchdog/test/render_report_suppression.test.mjs
